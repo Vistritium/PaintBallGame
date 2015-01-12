@@ -49,7 +49,7 @@ public class FPSDisplay : MonoBehaviour
     {
         if (mainPlayer != null)
         {
-            playerInfo = mainPlayer.State.ToString();
+            playerInfo = mainPlayer.lastSpeed.ToString();
         }
         accum += Time.timeScale/Time.deltaTime;
         ++frames;

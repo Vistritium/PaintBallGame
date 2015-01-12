@@ -37,6 +37,13 @@ namespace Assets.Communication.Packet
                     return speedPowerup;
                 }
 
+                case 2:
+                {
+                    var sizePowerup = gameObject.AddComponent<SizePowerup>();
+                    sizePowerup.Initialize(PowerUpId, PowerUpData);
+                    return sizePowerup;
+                }
+
 
                 default:
                 {

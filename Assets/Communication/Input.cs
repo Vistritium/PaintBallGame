@@ -49,7 +49,7 @@ namespace Assets.Communication
                 if (child.name == mapBonusData.name)
                 {
                     GameObject newObj = (GameObject) Instantiate(child.gameObject);
-                    newObj.GetComponent<MapBonusElement>().Initialize(mapBonusData.id);
+                    newObj.GetComponent<MapBonusElement>().Initialize(mapBonusData.id, mapBonusData.lifespan);
                     newObj.name = mapBonusData.name + mapBonusData.id;
                     newObj.transform.position = new Vector3(mapBonusData.x, mapBonusData.y, newObj.transform.position.z);
                     newObj.SetActive(true);

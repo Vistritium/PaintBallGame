@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Diagnostics;
 using SimpleJSON;
+using UnityEngine;
 
 namespace Assets.Communication.Packet
 {
@@ -11,11 +11,6 @@ namespace Assets.Communication.Packet
             var json = new JSONClass();
             json["funKey"] = funkey;
             json["value"] = value;
-            String wtf = json.ToString();
-            if (wtf == "d")
-            {
-                throw new ArgumentException("");
-            }
             return json;
         }
     }

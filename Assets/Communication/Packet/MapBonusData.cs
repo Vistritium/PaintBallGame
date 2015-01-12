@@ -10,11 +10,15 @@ namespace Assets.Communication.Packet
             x = node["x"].AsFloat;
             y = node["y"].AsFloat;
             name = node["name"].Value;
-/*            JSONNode jsonNode = node["lifespan"];
+            JSONNode jsonNode = node["lifespan"];
             if (jsonNode != null)
             {
-                lifespan = jsonNode.AsFloat;                
-            }*/
+                lifespan = jsonNode.AsFloat;
+            }
+            else
+            {
+                lifespan = -1f;
+            }
         }
 
         public float lifespan { get; set; }

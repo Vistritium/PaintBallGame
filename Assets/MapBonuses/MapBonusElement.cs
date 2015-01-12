@@ -11,6 +11,7 @@ namespace Assets.MapBonus
         private Output output;
         private PlayerManager playerManager;
         private float timeLeft;
+        private bool eaten = false;
 
         private void Start()
         {
@@ -31,22 +32,26 @@ namespace Assets.MapBonus
                 timeLeft -= Time.deltaTime;
                 if (timeLeft <= 0)
                 {
-                    Destroy(this);
+                    Destroy(this.gameObject);
                 }
             }
 
-            foreach (var playerEntry in playerManager.players)
+            if (!eaten)
             {
-                GameObject player = playerEntry.Value;
-                if (
-                    player.GetComponent<Player>()
-                        .CollidesWithCircle(new Vector2(transform.position.x, transform.position.y),
-                            transform.localScale.x*0.3f))
+                foreach (var playerEntry in playerManager.players)
                 {
-                    //  Destroy(this.gameObject);
-                    //output.AteBonus(id);
-                }
+                    GameObject player = playerEntry.Value;
+                    if (
+                        player.GetComponent<Player>()
+                            .CollidesWithCircle(new Vector2(transform.position.x, transform.position.y),
+                                transform.localScale.x * 0.3f))
+                    {
+                        //  Destroy(this.gameObject);
+                        output.AteBonus(id);
+                    }
+                }  
             }
+
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using AssemblyCSharp;
 using Assets.Communication;
 using UnityEngine;
@@ -13,6 +14,14 @@ public class PlayerController : MonoBehaviour
     public static Output Output;
     private readonly List<MovingState> activeStates = new List<MovingState>();
     private Player player;
+
+    class Foo
+    {
+        public override string ToString()
+        {
+            return "FooString";
+        }
+    }
 
     private void Start()
     {

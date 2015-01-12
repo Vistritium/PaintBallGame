@@ -871,7 +871,7 @@ namespace SimpleJSON
             {
                 if (result.Length > 2)
                     result += ", ";
-                String value = N.Value;
+                String value = N.Value.ToString();
                 result += "\"" + Escape(N.Key) + "\":" + value;
             }
             result += "}";

@@ -44,13 +44,13 @@ namespace Assets.Powerups
         protected override void StartEffect()
         {
             Debug.Log("Start effect");
-            GetComponent<Player>().Speed += speedBonus;
+            GetComponent<Player>().AddSpeedMultiplier(speedBonus);
         }
 
         protected override void FinishEffect()
         {
             Debug.Log("Finish effect");
-            GetComponent<Player>().Speed -= speedBonus;
+            GetComponent<Player>().RemoveSpeedMultiplier(speedBonus);
         }
 
         protected override int GetId()

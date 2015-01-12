@@ -1,5 +1,8 @@
 using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
+using Random = System.Random;
 
 namespace AssemblyCSharp
 {
@@ -17,15 +20,64 @@ namespace AssemblyCSharp
         private float planeWidth;
         private float speed;
 
+        //for info only, do not change
+        public float lastSpeed;
+
         public float Speed
         {
             get { return speed; }
             set { speed = value; }
         }
 
+        private List<float> speedModifiersPositive = new List<float>();
+        private List<float> speedModifiersNegative = new List<float>();
+
+        private List<float> sizeModifiers = new List<float>();
+        private bool sizeModifiersDirty = false;
+        
+
+
         public string Name { get; set; }
 
         public uint Id { get; set; }
+
+        public void AddSizeModifier(float multiplier)
+        {
+            sizeModifiers.Add(multiplier);
+            sizeModifiersDirty = true;
+        }
+
+        public void RemoveSizeModifier(float multiplier)
+        {
+            sizeModifiers.Remove(multiplier);
+            sizeModifiersDirty = true;
+        }
+
+        public void AddSpeedMultiplier(float multiplier)
+        {
+            if (multiplier > 1)
+            {
+                speedModifiersPositive.Add(PlayerSpeed*multiplier - PlayerSpeed);
+                speedModifiersPositive.Sort();
+            }
+            else if (multiplier < 1)
+            {
+                speedModifiersNegative.Add(PlayerSpeed - PlayerSpeed*multiplier);
+                speedModifiersNegative.Sort();
+            }
+        }
+
+        public void RemoveSpeedMultiplier(float multiplier)
+        {
+            if (multiplier > 1)
+            {
+                speedModifiersPositive.Remove(PlayerSpeed * multiplier - PlayerSpeed);
+            }
+            else if (multiplier < 1)
+            {
+                speedModifiersNegative.Remove(PlayerSpeed - PlayerSpeed * multiplier);
+            }
+        }
 
         public MovingState State
         {
@@ -54,17 +106,53 @@ namespace AssemblyCSharp
             return Vector2.Distance(position, new Vector2(transform.position.x, transform.position.y)) < r + myR;
         }
 
+        private void UpdateSize()
+        {
+            if (sizeModifiersDirty)
+            {
+                sizeModifiersDirty = false;
+
+                sizeModifiers.Sort();
+                float sizeModifier = 1;
+                for (int i = 0; i < sizeModifiers.Count; i++)
+                {
+                    sizeModifier *= 1 + ((sizeModifiers[i]-1) / ((float)Math.Pow(2, i)));
+                }
+                this.transform.localScale = new Vector3(sizeModifier, sizeModifier, sizeModifier);
+
+            }
+        }
+
 
         private void Update()
         {
+
             int x = 0;
             int y = 0;
 
             StateToFactors(out y, out x);
 
+            UpdateSize();
+
             if (x != 0 || y != 0)
             {
-                transform.Translate(speed*Time.deltaTime*x, speed*Time.deltaTime*y, 0);
+/*                if (speedModifiersPositive.Count >= 2)
+                {
+                    Debug.Log("hi");
+                }*/
+                float multipliedSpeed = Speed;
+                for (int i = 0; i < speedModifiersPositive.Count; i++)
+                {
+                    float add = speedModifiersPositive[i]/((float) Math.Pow(2, i));
+                    multipliedSpeed += add;
+                }
+                for (int i = 0; i < speedModifiersNegative.Count; i++)
+                {
+                    float add = speedModifiersNegative[i]/((float) Math.Pow(2, i));
+                    multipliedSpeed -= add;
+                }
+                lastSpeed = multipliedSpeed;
+                transform.Translate(multipliedSpeed*Time.deltaTime*x, multipliedSpeed*Time.deltaTime*y, 0);
             }
             // var vector3 = 
         }

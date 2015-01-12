@@ -54,7 +54,7 @@ public class DrawPlayer : MonoBehaviour
 
             Vector2 percentagePlanePosition = GetPercentagePlanePosition();
 
-            drawer.Paint(percentagePlanePosition, 30.0f, player.Color, textureToChange,
+            drawer.Paint(percentagePlanePosition, 30 * player.transform.localScale.x, player.Color, textureToChange,
                 _plane.transform.localScale.y/_plane.transform.localScale.x, player);
             _texture.Apply();
         }
