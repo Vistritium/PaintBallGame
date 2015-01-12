@@ -53,6 +53,18 @@ namespace Assets.Powerups
             GetComponent<Player>().RemoveSpeedMultiplier(speedBonus);
         }
 
+        protected override Color GetColor()
+        {
+            if (speedBonus < 1)
+            {
+                return Color.green;
+            }
+            else
+            {
+                return Color.blue;
+            }
+        }
+
         protected override int GetId()
         {
             return id;

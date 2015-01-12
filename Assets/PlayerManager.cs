@@ -2,6 +2,7 @@
 using System.Linq;
 using AssemblyCSharp;
 using Assets;
+using Assets.CircleProgress;
 using Assets.Communication;
 using Assets.Communication.Packet;
 using Assets.Drawing;
@@ -23,6 +24,7 @@ public class PlayerManager : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        
     }
 
 /*    public void AddMainPlayer(PlayerData player)
@@ -68,6 +70,7 @@ public class PlayerManager : MonoBehaviour
                 MainPlayer.AddComponent(typeof (PlayerController));
                 MainPlayer.GetComponent<PlayerController>().enabled = false;
             }
+            player.AddComponent<ProgressCircleStack>();
             GetComponent<Output>()
                 .Log("OK ADDED PLEJER " + playerData.id + " name " + playerData.name + " main:" + playerData.isMain);
         }

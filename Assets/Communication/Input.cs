@@ -53,6 +53,7 @@ namespace Assets.Communication
                     newObj.name = mapBonusData.name + mapBonusData.id;
                     newObj.transform.position = new Vector3(mapBonusData.x, mapBonusData.y, newObj.transform.position.z);
                     newObj.SetActive(true);
+
                 }
             }
 

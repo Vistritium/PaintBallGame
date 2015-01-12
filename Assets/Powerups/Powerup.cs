@@ -1,8 +1,10 @@
 ﻿using AssemblyCSharp;
+using Assets.CircleProgress;
 using UnityEngine;
 
 namespace Assets.Powerups
 {
+    [RequireComponent(typeof(ProgressCircleStack))]
     [RequireComponent(typeof (Player))]
     public abstract class Powerup : MonoBehaviour
     {
@@ -11,8 +13,10 @@ namespace Assets.Powerups
         // Use this for initialization
         protected virtual void Start()
         {
-            timeLeft = GetDuration();
+            float duration = GetDuration();
+            timeLeft = duration;
             StartEffect();
+            this.GetComponent<ProgressCircleStack>().AddCircleProgress(GetColor(), duration);
         }
 
         // Update is called once per frame
@@ -31,6 +35,8 @@ namespace Assets.Powerups
         protected abstract void StartEffect();
 
         protected abstract void FinishEffect();
+
+        protected abstract Color GetColor();
 
         protected abstract int GetId();
     }

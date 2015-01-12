@@ -9,6 +9,7 @@ namespace Assets.Communication
 {
     internal class TestCommunicater : MonoBehaviour
     {
+
         private Input input;
         private PlayerManager playerManager;
 

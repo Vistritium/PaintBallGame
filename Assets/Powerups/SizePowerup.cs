@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using AssemblyCSharp;
 using SimpleJSON;
+using UnityEngine;
 
 namespace Assets.Powerups
 {
@@ -38,6 +39,11 @@ namespace Assets.Powerups
         protected override void FinishEffect()
         {
             GetComponent<Player>().RemoveSizeModifier(sizeBonus);
+        }
+
+        protected override Color GetColor()
+        {
+            return Color.red;
         }
 
         protected override int GetId()
